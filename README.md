@@ -429,7 +429,8 @@ You can train a diffusion policy on aloha's transfer task using the following co
 
 And the following to evaluate a policy you have trained already:
 ```python lerobot/scripts/eval.py -p outputs/train/<path_to_model>/checkpoints/last/pretrained_model eval.n_episodes=50 eval.batch_size=10```
-**<path_to_model>** will only show up after training and will be something like <date>/<code>_aloha_diffusion_default. For example, it could be: **outputs/train/2024-10-27/22-24-33_aloha_diffusion_default/checkpoints/last/pretrained_model**.
+
+**<path_to_model>** will only show up after training and will be something like < date >/< random_number >_aloha_diffusion_default. For example, it could be: **outputs/train/2024-10-27/22-24-33_aloha_diffusion_default/checkpoints/last/pretrained_model**.
 
 The yaml files inside **lerobot/configs/policy** are where you can play with the number of training and evaluation steps and other hyperparameters for these training and evaluating these policies. If running on a CPU, you may have to sacrifice a better training for less training given training is very slow. But, you will still be able to see the rollouts of each policy as you specify them in the **.yaml** files. 
 
