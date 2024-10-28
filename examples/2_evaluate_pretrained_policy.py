@@ -21,7 +21,7 @@ output_directory.mkdir(parents=True, exist_ok=True)
 # Download the diffusion policy for pusht environment
 pretrained_policy_path = Path(snapshot_download("lerobot/diffusion_pusht"))
 # OR uncomment the following to evaluate a policy from the local outputs/train folder.
-# pretrained_policy_path = Path("outputs/train/example_pusht_diffusion")
+pretrained_policy_path = Path("outputs/train/example_pusht_diffusion")
 
 policy = DiffusionPolicy.from_pretrained(pretrained_policy_path)
 policy.eval()
@@ -47,9 +47,10 @@ env = gym.make(
     max_episode_steps=300,
 )
 
-# Reset the policy and environmens to prepare for rollout
+# Reset the policy and environment to prepare for rollout
 policy.reset()
 numpy_observation, info = env.reset(seed=42)
+# print("numpy_observation:", numpy_observation)
 
 # Prepare to collect every rewards and all the frames of the episode,
 # from initial state to final state.
@@ -77,8 +78,12 @@ while not done:
     image = image.to(device, non_blocking=True)
 
     # Add extra (empty) batch dimension, required to forward the policy
+    # print("state:", state)
+    # print("image:", image)
     state = state.unsqueeze(0)
     image = image.unsqueeze(0)
+    # print("state:", state)
+    # print("image:", image)
 
     # Create the policy input dictionary
     observation = {
