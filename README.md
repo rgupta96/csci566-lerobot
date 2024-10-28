@@ -417,3 +417,19 @@ Additionally, if you are using any of the particular policy architecture, pretra
   year={2024}
 }
 ```
+
+## CSCI566 Instructions
+
+I updated some of the ```examples``` scripts to be more usable on CPU, while trading off performance. Not intended to be the optimal way, but without cluster access we needed to make adjustments.
+
+Also added ```diffusion_aloha.yaml``` and the resulting weights (not that they're any good) for **act_pusht** and **diffusion_aloha** which you can find here: https://drive.google.com/file/d/1zM3R6vSRCDJ2b2aX7dhio-y675cXMiFP/view?usp=drive_link. Download the zip file, and place the resulting ```outputs``` folder in your main ```lerobot``` directory — not ```lerobot/lerobot```! I would have uploaded these directly to github myself, but the files were too large. 
+
+You can train a script using the following command line script:
+```python lerobot/scripts/train.py policy=diffusion_aloha env=aloha env.task=AlohaTransferCube-v0```
+
+And the following to evaluate a policy you have trained already:
+```python lerobot/scripts/eval.py -p outputs/train/2024-10-27/22-24-33_aloha_diffusion_default/checkpoints/last/pretrained_model eval.n_episodes=50 eval.batch_size=10```
+
+The yaml files inside **lerobot/configs/policy** are where you can play with the number of training and evaluation steps and other hyperparameters for these training and evaluating these policies. If running on a CPU, you may have to sacrifice a better training for less training given training is very slow. But, you will still be able to see the rollouts of each policy as you specify them in the **.yaml** files. 
+
+
