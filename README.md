@@ -424,11 +424,12 @@ I updated some of the ```examples``` scripts to be more usable on CPU, while tra
 
 Also added ```diffusion_aloha.yaml``` and the resulting weights (not that they're any good) for **act_pusht** and **diffusion_aloha** which you can find here: https://drive.google.com/file/d/1zM3R6vSRCDJ2b2aX7dhio-y675cXMiFP/view?usp=drive_link. Download the zip file, and place the resulting ```outputs``` folder in your main ```lerobot``` directory — not ```lerobot/lerobot```! I would have uploaded these directly to github myself, but the files were too large. 
 
-You can train a script using the following command line script:
+You can train a diffusion policy on aloha's transfer task using the following command line script:
 ```python lerobot/scripts/train.py policy=diffusion_aloha env=aloha env.task=AlohaTransferCube-v0```
 
 And the following to evaluate a policy you have trained already:
-```python lerobot/scripts/eval.py -p outputs/train/2024-10-27/22-24-33_aloha_diffusion_default/checkpoints/last/pretrained_model eval.n_episodes=50 eval.batch_size=10```
+```python lerobot/scripts/eval.py -p outputs/train/<path_to_model>/checkpoints/last/pretrained_model eval.n_episodes=50 eval.batch_size=10```
+**<path_to_model>** will only show up after training and will be something like <date>/<code>_aloha_diffusion_default. For example, it could be: **outputs/train/2024-10-27/22-24-33_aloha_diffusion_default/checkpoints/last/pretrained_model**.
 
 The yaml files inside **lerobot/configs/policy** are where you can play with the number of training and evaluation steps and other hyperparameters for these training and evaluating these policies. If running on a CPU, you may have to sacrifice a better training for less training given training is very slow. But, you will still be able to see the rollouts of each policy as you specify them in the **.yaml** files. 
 
