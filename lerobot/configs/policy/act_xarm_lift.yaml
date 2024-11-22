@@ -4,7 +4,7 @@
 # (to avoid evaluating on seeds used for generating the training data).
 seed: 100000
 # Change the dataset repository to the PushT one.
-dataset_repo_id: lerobot/pusht
+dataset_repo_id: lerobot/xarm_lift_medium
 
 override_dataset_stats:
   observation.image:
@@ -44,7 +44,7 @@ policy:
   n_action_steps: 100
 
   input_shapes:
-    observation.image: [3, 96, 96]
+    observation.image: [3, 84, 84]
     observation.state: ["${env.state_dim}"]
   output_shapes:
     action: ["${env.action_dim}"]
