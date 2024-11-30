@@ -23,7 +23,7 @@ training:
   save_checkpoint: true
   
 
-  batch_size: 16
+  batch_size: 4
   grad_clip_norm: 10
   lr: 1.0e-4
   lr_scheduler: cosine

@@ -17,13 +17,13 @@ override_dataset_stats:
 training:
   offline_steps: 80000
   online_steps: 0
-  eval_freq: 10000
-  save_freq: 10000
-  log_freq: 100
+  eval_freq: 80000
+  save_freq: 2500
+  log_freq: 1
   save_checkpoint: true
   
 
-  batch_size: 16
+  batch_size: 4
   grad_clip_norm: 10
   lr: 1.0e-4
   lr_scheduler: cosine
@@ -34,7 +34,7 @@ training:
   online_steps_between_rollouts: 1
 
   delta_timestamps:
-    observation.images.top: "[i / ${fps} for i in range(1 - ${policy.n_obs_steps}, 1)]"
+    observation.image: "[i / ${fps} for i in range(1 - ${policy.n_obs_steps}, 1)]"
     observation.state: "[i / ${fps} for i in range(1 - ${policy.n_obs_steps}, 1)]"
     action: "[i / ${fps} for i in range(1 - ${policy.n_obs_steps}, 1 - ${policy.n_obs_steps} + ${policy.horizon})]"
 
@@ -43,8 +43,8 @@ training:
   drop_n_last_frames: 7  # ${policy.horizon} - ${policy.n_action_steps} - ${policy.n_obs_steps} + 1
 
 eval:
-  n_episodes: 50
-  batch_size: 50
+  n_episodes: 1
+  batch_size: 1
 
 policy:
   name: diffusion
@@ -56,14 +56,14 @@ policy:
 
   input_shapes:
     # TODO(rcadene, alexander-soare): add variables for height and width from the dataset/env?
-    observation.images.top: [3, 480, 640]
+    observation.image: [3, 84, 84]
     observation.state: ["${env.state_dim}"]
   output_shapes:
     action: ["${env.action_dim}"]
 
   # Normalization / Unnormalization
   input_normalization_modes:
-    observation.images.top: mean_std
+    observation.image: mean_std
     observation.state: min_max
   output_normalization_modes:
     action: min_max
